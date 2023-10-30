@@ -6,7 +6,7 @@ data "archive_file" "lambda_hello_world" {
 }
 
 resource "aws_s3_object" "lambda_hello_world" {
-  bucket = aws_s3_bucket.lambda_bucket.id
+  bucket = var.bucket_id
 
   key    = "hello-world.zip"
   source = data.archive_file.lambda_hello_world.output_path
@@ -14,13 +14,10 @@ resource "aws_s3_object" "lambda_hello_world" {
   etag = filemd5(data.archive_file.lambda_hello_world.output_path)
 }
 
-
-# Lambda function itself
-
  resource "aws_lambda_function" "hello_world" {
    function_name = "HelloWorld"
 
-   s3_bucket = aws_s3_bucket.lambda_bucket.id
+   s3_bucket = var.bucket_id
    s3_key    = aws_s3_object.lambda_hello_world.key
 
    runtime = "ruby3.2"
