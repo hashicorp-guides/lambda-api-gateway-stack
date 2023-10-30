@@ -1,0 +1,44 @@
+variable "region" {
+  type = string
+}
+
+variable "identity_token_file" {
+  type = string
+}
+
+component "s3" {
+  source = "./s3"
+
+  inputs = {
+    region = var.region
+  }
+
+  providers = {
+    aws       = provider.aws.this
+    random    = provider.random.this
+  }
+}
+
+component "lambda" {
+  source = "./lambda"
+
+  inputs = {
+    region              = var.region
+  }
+
+  providers = {
+    aws        = provider.aws.this
+  }
+}
+
+component "api_gateway" {
+  source = "./api-gateway"
+
+  inputs = {
+    region              = var.region
+  }
+
+  providers = {
+    aws        = provider.aws.this
+  }
+}
