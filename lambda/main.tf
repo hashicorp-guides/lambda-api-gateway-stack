@@ -2,20 +2,37 @@ data "archive_file" "lambda_hello_world" {
   type = "zip"
 
   source_dir  = "${path.module}/hello-world"
-  output_path = "${path.module}/hello-world.zip"
+
+  # HACK: We're manually utilizing the agent's tmp dir; a proper temporary file interface should be
+  # used here instead.
+  output_path = "${path.module}/../../../tmp/hello-world.zip"
+}
+
+# HACK: The tmp dir in the agent is not yet persisted between plan/apply. This hack allows us to
+# cheat by using the plan itself as a cache between operations.
+data "local_file" "lambda_hello_world" {
+  filename = data.archive_file.lambda_hello_world.output_path
 }
 
 resource "aws_s3_object" "lambda_hello_world" {
   bucket = var.bucket_id
 
   key    = "hello-world.zip"
-  source = data.archive_file.lambda_hello_world.output_path
 
-  etag = filemd5(data.archive_file.lambda_hello_world.output_path)
+  content_base64 = data.local_file.lambda_hello_world.content_base64
+  # source = data.archive_file.lambda_hello_world.output_path
+
+  etag = data.local_file.lambda_hello_world.content_md5
+  # etag = filemd5(data.archive_file.lambda_hello_world.output_path)
+}
+
+resource "random_pet" "lambda_function_name" {
+  prefix = "hello-world-lambda-changed"
+  length = 2
 }
 
  resource "aws_lambda_function" "hello_world" {
-   function_name = "HelloWorld"
+   function_name = random_pet.lambda_function_name.id
 
    s3_bucket = var.bucket_id
    s3_key    = aws_s3_object.lambda_hello_world.key
@@ -35,7 +52,7 @@ resource "aws_s3_object" "lambda_hello_world" {
  }
 
  resource "aws_iam_role" "lambda_exec" {
-   name = "serverless_lambda"
+   name = random_pet.lambda_function_name.id
 
    assume_role_policy = jsonencode({
      Version = "2012-10-17"
@@ -57,8 +74,3 @@ resource "aws_s3_object" "lambda_hello_world" {
  }
 
 
- output "function_name" {
-   description = "Name of the Lambda function."
-
-   value = aws_lambda_function.hello_world.function_name
- }

@@ -8,17 +8,29 @@ required_providers {
     source  = "hashicorp/random"
     version = "~> 3.5.1"
   }
+
+  archive = {
+    source  = "hashicorp/archive"
+    version = "~> 2.4.0"
+  }
+
+  local = {
+    source = "hashicorp/local"
+    version = "~> 2.4.0"
+  }
 }
 
 provider "aws" "this" {
   config {
     region = var.region
-    web_identity_token_file = var.identity_token_file
 
-    assume_role {
-      role_arn = var.role_arn
+    assume_role_with_web_identity {
+      role_arn                = "arn:aws:iam::083007324304:role/tfc-chrisarcand-oidc-role"
+      web_identity_token_file = var.identity_token_file
     }
   }
 }
 
 provider "random" "this" {}
+provider "archive" "this" {}
+provider "local" "this" {}
