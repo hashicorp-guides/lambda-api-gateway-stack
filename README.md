@@ -16,7 +16,7 @@ Three components are used:
 1. Fork this repository such that you can edit this stack configuration for your own purposes. 
 2. Provision the stack (usage docs for that elsewhere). Remember you'll need to...
    * Configure OIDC in AWS with Terraform Cloud.
-   * Set the IAM role ARN you used in the previous step in `deployments.tfdeploy.hcl`.
+   * Set the identity token audience and IAM role ARN you used in the previous step in `deployments.tfdeploy.hcl`.
 4. Profit! Go to the URL defined in the outputs of the `api-gateway` component. Change your name by
    using the query string paramter `name` (e.g.
    `xxx.execute-api.us-east-1.amazonaws.com/serverless_lambda_stage/hello?name=Alisdair`)

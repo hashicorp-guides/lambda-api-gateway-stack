@@ -25,7 +25,7 @@ provider "aws" "this" {
     region = var.region
 
     assume_role_with_web_identity {
-      role_arn                = "arn:aws:iam::083007324304:role/tfc-chrisarcand-oidc-role"
+      role_arn                = var.role_arn
       web_identity_token_file = var.identity_token_file
     }
   }

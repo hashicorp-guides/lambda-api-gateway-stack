@@ -1,11 +1,3 @@
-variable "region" {
-  type = string
-}
-
-variable "identity_token_file" {
-  type = string
-}
-
 component "s3" {
   source = "./s3"
 
