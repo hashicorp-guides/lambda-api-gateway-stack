@@ -2,7 +2,7 @@ identity_token "aws" {
   audience = ["<Set to your AWS IAM assume-role audience>"]
 }
 
-deployment "us-east-1" {
+deployment "production" {
   variables = {
     region              = "us-east-1"
     role_arn            = "<Set to your AWS IAM OIDC role ARN>"
