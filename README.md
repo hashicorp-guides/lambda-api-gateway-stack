@@ -4,7 +4,7 @@ _This is an example stack configuration for the private preview of Terraform Sta
 constructs and features are subject to change given feedback received during this preview. Do not
 use Stacks for production workloads at this time._
 
-<image>
+![lambda-api-gateway-stack](https://github.com/hashicorp/lambda-api-gateway-stack/assets/2430490/f002246e-98da-4340-a908-f5b3fc274ac4)
 
 An example Terraform Stack that provisions an AWS S3 bucket, an AWS Lambda function served from that bucket,
 and an AWS API Gateway to invoke that function at a URL.
