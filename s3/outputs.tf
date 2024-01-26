@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 output "bucket_id" {
   description = "The ID of the S3 bucket to be used by a downstream component in this stack."
 

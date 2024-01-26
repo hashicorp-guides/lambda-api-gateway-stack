@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 resource "random_pet" "api_gateway_name" {
   prefix = "hello-world-lambda-gw"
   length = 2
