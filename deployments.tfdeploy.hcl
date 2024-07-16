@@ -5,7 +5,7 @@ identity_token "aws" {
   audience = ["aws.workload.identity"]
 }
 
-deployment "production" {
+deployment "local" {
   variables = {
     region              = "us-east-1"
     role_arn            = "arn:aws:iam::337004615669:role/tf-stacks-ngrok"
