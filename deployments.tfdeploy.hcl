@@ -6,10 +6,10 @@ identity_token "aws" {
 }
 
 deployment "production" {
-  variables = {
-    region              = "us-east-1"
-    role_arn            = "<Set to your AWS IAM OIDC role ARN>"
-    identity_token_file = identity_token.aws.jwt_filename
-    default_tags      = { stacks-preview-example = "lambda-api-gateway-stack" }
+  inputs = {
+    region         = "us-east-1"
+    role_arn       = "<Set to your AWS IAM OIDC role ARN>"
+    identity_token = identity_token.aws.jwt
+    default_tags   = { stacks-preview-example = "lambda-api-gateway-stack" }
   }
 }
