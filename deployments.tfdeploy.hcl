@@ -6,7 +6,7 @@ identity_token "aws" {
 }
 
 deployment "local" {
-  variables = {
+  inputs = {
     region              = "us-east-1"
     role_arn            = "arn:aws:iam::337004615669:role/tf-stacks-ngrok"
     identity_token_file = identity_token.aws.jwt_filename
