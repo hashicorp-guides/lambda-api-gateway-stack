@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 resource "random_pet" "lambda_bucket_name" {
-  prefix = "hello-world-lambda"
+  prefix = "hello-world-lambda-2"
   length = 2
 }
 
