@@ -30,7 +30,7 @@ resource "aws_s3_object" "lambda_hello_world" {
 }
 
 resource "random_pet" "lambda_function_name" {
-  prefix = "hello-world-lambda-v6"
+  prefix = "hello-world-lambda-v7"
   length = 2
 }
 
